@@ -1,0 +1,35 @@
+{
+  "name": "amber-pre-interview",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "db:push": "turbo -F @amber-pre-interview/db db:push",
+    "db:studio": "turbo -F @amber-pre-interview/db db:studio",
+    "db:generate": "turbo -F @amber-pre-interview/db db:generate",
+    "db:migrate": "turbo -F @amber-pre-interview/db db:migrate",
+    "check": "ultracite check",
+    "fix": "ultracite fix"
+  },
+  "dependencies": {
+    "@amber-pre-interview/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@amber-pre-interview/config": "workspace:*",
+    "@biomejs/biome": "2.4.5",
+    "@types/node": "^22.13.14",
+    "turbo": "^2.8.12",
+    "typescript": "^5",
+    "ultracite": "7.3.0"
+  },
+  "packageManager": "pnpm@9.14.2"
+}

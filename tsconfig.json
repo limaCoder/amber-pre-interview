@@ -1,0 +1,6 @@
+{
+  "extends": "@amber-pre-interview/config/tsconfig.base.json",
+  "compilerOptions": {
+    "strictNullChecks": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@amber-pre-interview/api",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@amber-pre-interview/auth": "workspace:*",
+    "@amber-pre-interview/db": "workspace:*",
+    "@amber-pre-interview/env": "workspace:*",
+    "@orpc/client": "catalog:",
+    "@orpc/openapi": "catalog:",
+    "@orpc/server": "catalog:",
+    "@orpc/zod": "catalog:",
+    "@prisma/client": "catalog:",
+    "dotenv": "catalog:",
+    "next": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@amber-pre-interview/config": "workspace:*",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-lyra",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@amber-pre-interview/ui/components",
+    "utils": "@amber-pre-interview/ui/lib/utils",
+    "hooks": "@amber-pre-interview/ui/hooks",
+    "lib": "@amber-pre-interview/ui/lib",
+    "ui": "@amber-pre-interview/ui/components"
+  },
+  "menuColor": "default",
+  "menuAccent": "subtle",
+  "registries": {}
+}

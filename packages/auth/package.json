@@ -1,0 +1,24 @@
+{
+  "name": "@amber-pre-interview/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@amber-pre-interview/db": "workspace:*",
+    "@amber-pre-interview/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@amber-pre-interview/config": "workspace:*",
+    "typescript": "^5"
+  }
+}
