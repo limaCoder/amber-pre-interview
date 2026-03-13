@@ -36,6 +36,7 @@ import {
 	LogOutIcon,
 	PlusIcon,
 } from "lucide-react";
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -45,25 +46,7 @@ import {
 	type SidebarNavigationGroup,
 } from "@/data/sidebar-navigation-items";
 import { authClient } from "@/lib/auth-client";
-
-const WHITESPACE_REGEX = /\s+/;
-
-const getUserInitials = (fullName: string): string => {
-	const words = fullName.trim().split(WHITESPACE_REGEX).filter(Boolean);
-
-	if (words.length === 0) {
-		return "U";
-	}
-
-	if (words.length === 1) {
-		const firstTwoChars = Array.from(words[0]).slice(0, 2);
-		return firstTwoChars.join("").toUpperCase();
-	}
-
-	const first = Array.from(words[0])[0] ?? "";
-	const last = Array.from(words.at(-1) ?? "")[0] ?? "";
-	return `${first}${last}`.toUpperCase();
-};
+import { getUserInitials } from "@/utils/get-user-initials";
 
 export default function AppSidebar({
 	userEmail,
@@ -75,6 +58,7 @@ export default function AppSidebar({
 	const router = useRouter();
 	const pathname = usePathname();
 	const initials = getUserInitials(userName);
+
 	const collapsedIconCenterClassName =
 		"group-data-[collapsible=icon]:justify-center";
 	const collapsedMenuItemCenterClassName =
@@ -111,7 +95,9 @@ export default function AppSidebar({
 	const getNavigationIconClassName = (
 		isActive: boolean,
 		groupStyle: SidebarNavigationGroup["style"]
-	): string => cn(groupStyle === "commerce" && isActive && "text-orange-500");
+	): string =>
+		cn(groupStyle === "commerce" && isActive && "text-orange-500") ?? "";
+
 	const handleSignOut = () => {
 		authClient.signOut({
 			fetchOptions: {
@@ -180,7 +166,7 @@ export default function AppSidebar({
 													group.style
 												)}
 												isActive={isActive}
-												render={<Link href={item.href} />}
+												render={<Link href={item.href as Route} />}
 											>
 												<Icon
 													className={getNavigationIconClassName(
@@ -221,7 +207,7 @@ export default function AppSidebar({
 											group.style
 										)}
 										isActive={isActive}
-										render={<Link href={item.href} />}
+										render={<Link href={item.href as Route} />}
 									>
 										<Icon
 											className={getNavigationIconClassName(
