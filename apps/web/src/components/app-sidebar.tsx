@@ -36,6 +36,7 @@ import {
 	LogOutIcon,
 	PlusIcon,
 } from "lucide-react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import {
@@ -179,6 +180,7 @@ export default function AppSidebar({
 													group.style
 												)}
 												isActive={isActive}
+												render={<Link href={item.href} />}
 											>
 												<Icon
 													className={getNavigationIconClassName(
@@ -219,6 +221,7 @@ export default function AppSidebar({
 											group.style
 										)}
 										isActive={isActive}
+										render={<Link href={item.href} />}
 									>
 										<Icon
 											className={getNavigationIconClassName(
