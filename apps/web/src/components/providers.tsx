@@ -1,6 +1,7 @@
 "use client";
 
 import { Toaster } from "@amber-pre-interview/ui/components/sonner";
+import { TooltipProvider } from "@amber-pre-interview/ui/components/tooltip";
 
 import { ThemeProvider } from "./theme-provider";
 
@@ -12,8 +13,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 			disableTransitionOnChange
 			enableSystem
 		>
-			{children}
-			<Toaster richColors />
+			<TooltipProvider>
+				{children}
+				<Toaster richColors />
+			</TooltipProvider>
 		</ThemeProvider>
 	);
 }

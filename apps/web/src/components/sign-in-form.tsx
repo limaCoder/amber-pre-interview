@@ -15,6 +15,7 @@ import {
 import { Input } from "@amber-pre-interview/ui/components/input";
 import { Label } from "@amber-pre-interview/ui/components/label";
 import { useForm } from "@tanstack/react-form";
+import type { Route } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -26,6 +27,8 @@ const signInSchema = z.object({
 	email: z.email("Please enter a valid email address."),
 	password: z.string().min(8, "Password must be at least 8 characters."),
 });
+const dashboardRoute = "/dashboard" as Route;
+const signUpRoute = "/sign-up" as Route;
 
 export default function SignInForm() {
 	const router = useRouter();
@@ -44,6 +47,7 @@ export default function SignInForm() {
 				{
 					onSuccess: () => {
 						toast.success("Signed in successfully.");
+						router.push(dashboardRoute);
 						router.refresh();
 					},
 					onError: (error) => {
@@ -152,7 +156,7 @@ export default function SignInForm() {
 							className: "h-auto px-0",
 							variant: "link",
 						})}
-						href="/sign-up"
+						href={signUpRoute}
 					>
 						Create your account
 					</Link>
