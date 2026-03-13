@@ -1,10 +1,6 @@
 "use client";
 
 import { Toaster } from "@amber-pre-interview/ui/components/sonner";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-import { queryClient } from "@/utils/orpc";
 
 import { ThemeProvider } from "./theme-provider";
 
@@ -16,10 +12,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 			disableTransitionOnChange
 			enableSystem
 		>
-			<QueryClientProvider client={queryClient}>
-				{children}
-				<ReactQueryDevtools />
-			</QueryClientProvider>
+			{children}
 			<Toaster richColors />
 		</ThemeProvider>
 	);

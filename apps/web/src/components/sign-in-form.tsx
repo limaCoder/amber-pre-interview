@@ -1,22 +1,34 @@
-import { Button } from "@amber-pre-interview/ui/components/button";
+"use client";
+
+import {
+	Button,
+	buttonVariants,
+} from "@amber-pre-interview/ui/components/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@amber-pre-interview/ui/components/card";
 import { Input } from "@amber-pre-interview/ui/components/input";
 import { Label } from "@amber-pre-interview/ui/components/label";
 import { useForm } from "@tanstack/react-form";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import z from "zod";
 
 import { authClient } from "@/lib/auth-client";
 
-import Loader from "./loader";
+const signInSchema = z.object({
+	email: z.email("Please enter a valid email address."),
+	password: z.string().min(8, "Password must be at least 8 characters."),
+});
 
-export default function SignInForm({
-	onSwitchToSignUp,
-}: {
-	onSwitchToSignUp: () => void;
-}) {
+export default function SignInForm() {
 	const router = useRouter();
-	const { isPending } = authClient.useSession();
 
 	const form = useForm({
 		defaultValues: {
@@ -31,8 +43,8 @@ export default function SignInForm({
 				},
 				{
 					onSuccess: () => {
-						router.push("/dashboard");
-						toast.success("Sign in successful");
+						toast.success("Signed in successfully.");
+						router.refresh();
 					},
 					onError: (error) => {
 						toast.error(error.error.message || error.error.statusText);
@@ -41,102 +53,111 @@ export default function SignInForm({
 			);
 		},
 		validators: {
-			onSubmit: z.object({
-				email: z.email("Invalid email address"),
-				password: z.string().min(8, "Password must be at least 8 characters"),
-			}),
+			onSubmit: signInSchema,
 		},
 	});
 
-	if (isPending) {
-		return <Loader />;
-	}
-
 	return (
-		<div className="mx-auto mt-10 w-full max-w-md p-6">
-			<h1 className="mb-6 text-center font-bold text-3xl">Welcome Back</h1>
-
-			<form
-				className="space-y-4"
-				onSubmit={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
-					form.handleSubmit();
-				}}
-			>
-				<div>
+		<Card className="w-full max-w-md">
+			<CardHeader>
+				<CardTitle>Sign in</CardTitle>
+				<CardDescription>
+					Enter your credentials to access your account.
+				</CardDescription>
+			</CardHeader>
+			<CardContent>
+				<form
+					className="flex flex-col gap-5"
+					onSubmit={(event) => {
+						event.preventDefault();
+						event.stopPropagation();
+						form.handleSubmit();
+					}}
+				>
 					<form.Field name="email">
 						{(field) => (
-							<div className="space-y-2">
+							<div className="flex flex-col gap-2">
 								<Label htmlFor={field.name}>Email</Label>
 								<Input
+									autoComplete="email"
 									id={field.name}
 									name={field.name}
 									onBlur={field.handleBlur}
-									onChange={(e) => field.handleChange(e.target.value)}
+									onChange={(event) => field.handleChange(event.target.value)}
+									placeholder="name@example.com"
 									type="email"
 									value={field.state.value}
 								/>
-								{field.state.meta.errors.map((error) => (
-									<p className="text-red-500" key={error?.message}>
+								{field.state.meta.errors.map((error, index) => (
+									<p
+										className="text-destructive text-sm"
+										key={`${field.name}-${index}`}
+									>
 										{error?.message}
 									</p>
 								))}
 							</div>
 						)}
 					</form.Field>
-				</div>
-
-				<div>
 					<form.Field name="password">
 						{(field) => (
-							<div className="space-y-2">
+							<div className="flex flex-col gap-2">
 								<Label htmlFor={field.name}>Password</Label>
 								<Input
+									autoComplete="current-password"
 									id={field.name}
 									name={field.name}
 									onBlur={field.handleBlur}
-									onChange={(e) => field.handleChange(e.target.value)}
+									onChange={(event) => field.handleChange(event.target.value)}
+									placeholder="Enter your password"
 									type="password"
 									value={field.state.value}
 								/>
-								{field.state.meta.errors.map((error) => (
-									<p className="text-red-500" key={error?.message}>
+								{field.state.meta.errors.map((error, index) => (
+									<p
+										className="text-destructive text-sm"
+										key={`${field.name}-${index}`}
+									>
 										{error?.message}
 									</p>
 								))}
 							</div>
 						)}
 					</form.Field>
+					<form.Subscribe
+						selector={(state) => ({
+							canSubmit: state.canSubmit,
+							isSubmitting: state.isSubmitting,
+						})}
+					>
+						{({ canSubmit, isSubmitting }) => (
+							<Button
+								className="w-full"
+								disabled={!canSubmit || isSubmitting}
+								type="submit"
+							>
+								{isSubmitting ? "Signing in..." : "Sign in"}
+							</Button>
+						)}
+					</form.Subscribe>
+				</form>
+			</CardContent>
+			<CardFooter>
+				<div className="flex w-full flex-col items-center justify-center gap-1">
+					<p className="text-muted-foreground text-sm">
+						Don&apos;t have an account?
+					</p>
+					<Link
+						className={buttonVariants({
+							className: "h-auto px-0",
+							variant: "link",
+						})}
+						href="/sign-up"
+					>
+						Create your account
+					</Link>
 				</div>
-
-				<form.Subscribe
-					selector={(state) => ({
-						canSubmit: state.canSubmit,
-						isSubmitting: state.isSubmitting,
-					})}
-				>
-					{({ canSubmit, isSubmitting }) => (
-						<Button
-							className="w-full"
-							disabled={!canSubmit || isSubmitting}
-							type="submit"
-						>
-							{isSubmitting ? "Submitting..." : "Sign In"}
-						</Button>
-					)}
-				</form.Subscribe>
-			</form>
-
-			<div className="mt-4 text-center">
-				<Button
-					className="text-indigo-600 hover:text-indigo-800"
-					onClick={onSwitchToSignUp}
-					variant="link"
-				>
-					Need an account? Sign Up
-				</Button>
-			</div>
-		</div>
+			</CardFooter>
+		</Card>
 	);
 }
