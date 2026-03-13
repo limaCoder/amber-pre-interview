@@ -15,6 +15,7 @@ import {
 	Undo2Icon,
 	XIcon,
 } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState } from "react";
 import {
 	detailTemplate,
@@ -54,12 +55,14 @@ const getLowestFactoryId = (
 };
 
 const ProductGroupRow = ({
+	isFactoryHighlighted,
 	group,
-	selectedFactoryId,
+	onHoverFactory,
 	onSelectFactory,
 }: {
+	isFactoryHighlighted: (factoryId: string) => boolean;
 	group: ProductGroup;
-	selectedFactoryId: string | null;
+	onHoverFactory: (factoryId: string | null) => void;
 	onSelectFactory: (factoryId: string) => void;
 }) => {
 	const lowestGroupFactoryId = getLowestFactoryId(group.quotesByFactoryId);
@@ -93,14 +96,14 @@ const ProductGroupRow = ({
 				</td>
 				{detailTemplate.factories.map((factory) => {
 					const quote = group.quotesByFactoryId[factory.id];
-					const isSelected = selectedFactoryId === factory.id;
+					const isHighlighted = isFactoryHighlighted(factory.id);
 					const isBestPrice = lowestGroupFactoryId === factory.id;
 
 					return (
 						<td
 							className={cn(
-								"min-w-44 border-r p-0 align-top",
-								isSelected ? "bg-sky-50/80" : "bg-background"
+								"min-w-44 border-r p-0 align-top transition-colors",
+								isHighlighted ? "bg-sky-50/80" : "bg-background"
 							)}
 							key={`${group.id}-${factory.id}`}
 						>
@@ -108,6 +111,8 @@ const ProductGroupRow = ({
 								aria-label={`Select ${factory.name} column`}
 								className="flex w-full flex-col items-end px-4 py-3 text-right"
 								onClick={() => onSelectFactory(factory.id)}
+								onMouseEnter={() => onHoverFactory(factory.id)}
+								onMouseLeave={() => onHoverFactory(null)}
 								type="button"
 							>
 								<span
@@ -153,14 +158,14 @@ const ProductGroupRow = ({
 						</td>
 						{detailTemplate.factories.map((factory) => {
 							const quote = variant.quotesByFactoryId[factory.id];
-							const isSelected = selectedFactoryId === factory.id;
+							const isHighlighted = isFactoryHighlighted(factory.id);
 							const isBestPrice = lowestVariantFactoryId === factory.id;
 
 							return (
 								<td
 									className={cn(
-										"min-w-44 border-r p-0",
-										isSelected ? "bg-sky-50/80" : "bg-background",
+										"min-w-44 border-r p-0 transition-colors",
+										isHighlighted ? "bg-sky-50/80" : "bg-background",
 										isBestPrice ? "bg-emerald-50" : undefined
 									)}
 									key={`${variant.id}-${factory.id}`}
@@ -169,6 +174,8 @@ const ProductGroupRow = ({
 										aria-label={`Select ${factory.name} column`}
 										className="flex w-full flex-col items-end px-4 py-3 text-right"
 										onClick={() => onSelectFactory(factory.id)}
+										onMouseEnter={() => onHoverFactory(factory.id)}
+										onMouseLeave={() => onHoverFactory(null)}
 										type="button"
 									>
 										<span
@@ -273,10 +280,10 @@ const FactoryCard = ({
 			</div>
 
 			<div className="mt-3 flex gap-1.5 border-t p-2.5 pt-2">
-				<span className="inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-foreground text-xs">
+				<span className="inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-foreground text-xs transition-colors hover:bg-muted">
 					<MessageSquareIcon size={16} />
 				</span>
-				<span className="inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md border bg-background font-medium text-foreground text-xs">
+				<span className="inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md border bg-background font-medium text-foreground text-xs transition-colors hover:bg-muted">
 					<Undo2Icon className="size-3.5" />
 					Negotiate
 				</span>
@@ -303,6 +310,7 @@ export default function OrdersRfqDetail({
 	rfqCode,
 }: OrdersRfqDetailProps) {
 	const [costView, setCostView] = useState<CostView>("FOB");
+	const [hoveredFactoryId, setHoveredFactoryId] = useState<string | null>(null);
 	const [marginView, setMarginView] = useState<MarginView>("Markup");
 	const [selectedFactoryId, setSelectedFactoryId] = useState<string | null>(
 		null
@@ -318,6 +326,9 @@ export default function OrdersRfqDetail({
 		setSelectedFactoryId((currentFactoryId) =>
 			currentFactoryId === factoryId ? null : factoryId
 		);
+	};
+	const isFactoryHighlighted = (factoryId: string): boolean => {
+		return selectedFactoryId === factoryId || hoveredFactoryId === factoryId;
 	};
 
 	return (
@@ -389,10 +400,10 @@ export default function OrdersRfqDetail({
 						<div className="inline-flex rounded-md border bg-muted p-0.5">
 							<button
 								className={cn(
-									"rounded px-2 py-1 font-medium transition-colors",
+									"rounded px-2 py-1 font-medium transition-colors hover:text-foreground",
 									costView === "FOB"
-										? "bg-background text-foreground"
-										: "text-muted-foreground"
+										? "bg-background text-foreground hover:bg-background"
+										: "text-muted-foreground hover:bg-background"
 								)}
 								onClick={() => setCostView("FOB")}
 								type="button"
@@ -401,10 +412,10 @@ export default function OrdersRfqDetail({
 							</button>
 							<button
 								className={cn(
-									"rounded px-2 py-1 font-medium transition-colors",
+									"rounded px-2 py-1 font-medium transition-colors hover:text-foreground",
 									costView === "Landed"
-										? "bg-background text-foreground"
-										: "text-muted-foreground"
+										? "bg-background text-foreground hover:bg-background"
+										: "text-muted-foreground hover:bg-background"
 								)}
 								onClick={() => setCostView("Landed")}
 								type="button"
@@ -416,10 +427,10 @@ export default function OrdersRfqDetail({
 						<div className="inline-flex rounded-md border bg-muted p-0.5">
 							<button
 								className={cn(
-									"rounded px-2 py-1 font-medium transition-colors",
+									"rounded px-2 py-1 font-medium transition-colors hover:text-foreground",
 									marginView === "Markup"
-										? "bg-background text-foreground"
-										: "text-muted-foreground"
+										? "bg-background text-foreground hover:bg-background"
+										: "text-muted-foreground hover:bg-background"
 								)}
 								onClick={() => setMarginView("Markup")}
 								type="button"
@@ -428,10 +439,10 @@ export default function OrdersRfqDetail({
 							</button>
 							<button
 								className={cn(
-									"rounded px-2 py-1 font-medium transition-colors",
+									"rounded px-2 py-1 font-medium transition-colors hover:text-foreground",
 									marginView === "Margin"
-										? "bg-background text-foreground"
-										: "text-muted-foreground"
+										? "bg-background text-foreground hover:bg-background"
+										: "text-muted-foreground hover:bg-background"
 								)}
 								onClick={() => setMarginView("Margin")}
 								type="button"
@@ -456,14 +467,17 @@ export default function OrdersRfqDetail({
 								<th className="sticky left-0 z-20 min-w-72 border-r bg-muted/20 p-3 text-left" />
 								{detailTemplate.factories.map((factory) => {
 									const isSelected = selectedFactoryId === factory.id;
+									const isHighlighted = isFactoryHighlighted(factory.id);
 
 									return (
 										<th
 											className={cn(
-												"min-w-44 border-r p-3 align-top",
-												isSelected ? "bg-sky-50/70" : "bg-muted/20"
+												"min-w-44 border-r p-3 align-top transition-colors",
+												isHighlighted ? "bg-sky-50/70" : "bg-muted/20"
 											)}
 											key={factory.id}
+											onMouseEnter={() => setHoveredFactoryId(factory.id)}
+											onMouseLeave={() => setHoveredFactoryId(null)}
 										>
 											<FactoryCard
 												factory={factory}
@@ -479,9 +493,10 @@ export default function OrdersRfqDetail({
 							{detailTemplate.productGroups.map((group) => (
 								<ProductGroupRow
 									group={group}
+									isFactoryHighlighted={isFactoryHighlighted}
 									key={group.id}
+									onHoverFactory={setHoveredFactoryId}
 									onSelectFactory={toggleFactorySelection}
-									selectedFactoryId={selectedFactoryId}
 								/>
 							))}
 						</tbody>
@@ -489,78 +504,92 @@ export default function OrdersRfqDetail({
 				</div>
 			</div>
 
-			{selectedFactory ? (
-				<div className="fixed right-2 bottom-2 left-2 z-40 border border-sky-300 bg-sky-100/95 px-4 py-2 shadow-sm backdrop-blur md:right-3 md:left-[calc(var(--sidebar-width)+0.75rem)]">
-					<div className="flex flex-wrap items-center justify-between gap-4">
-						<div className="flex min-w-[220px] items-center gap-2">
-							<Avatar className="size-8" size="sm">
-								<AvatarFallback className="bg-blue-600 font-semibold text-white">
-									{selectedFactory.shortName}
-								</AvatarFallback>
-							</Avatar>
-							<div>
-								<p className="font-medium text-foreground text-sm">
-									{selectedFactory.name}
-								</p>
-								<div className="flex items-center gap-1 text-[11px] text-muted-foreground">
-									<StarIcon className="size-3 fill-amber-400 text-amber-400" />
-									<StarIcon className="size-3 fill-amber-400 text-amber-400" />
-									<StarIcon className="size-3 fill-amber-400 text-amber-400" />
-									<StarIcon className="size-3 fill-amber-400 text-amber-400" />
-									<StarIcon className="size-3 fill-amber-200 text-amber-300" />
-									<span className="ml-1 font-medium text-foreground text-xs">
-										{selectedFactory.rating.toFixed(1)}
-									</span>
-									<StarIcon className="ml-1 size-3 text-amber-500" />
+			<AnimatePresence>
+				{selectedFactory ? (
+					<motion.div
+						animate={{ opacity: 1, y: 0 }}
+						className="fixed right-2 bottom-2 left-2 z-40 border border-sky-300 bg-sky-100/95 px-4 py-2 shadow-sm backdrop-blur md:right-3 md:left-[calc(var(--sidebar-width)+0.75rem)]"
+						exit={{ opacity: 0, y: 16 }}
+						initial={{ opacity: 0, y: 20 }}
+						key="selected-factory-banner"
+						transition={{
+							damping: 28,
+							mass: 0.9,
+							stiffness: 360,
+							type: "spring",
+						}}
+					>
+						<div className="flex flex-wrap items-center justify-between gap-4">
+							<div className="flex min-w-[220px] items-center gap-2">
+								<Avatar className="size-8" size="sm">
+									<AvatarFallback className="bg-blue-600 font-semibold text-white">
+										{selectedFactory.shortName}
+									</AvatarFallback>
+								</Avatar>
+								<div>
+									<p className="font-medium text-foreground text-sm">
+										{selectedFactory.name}
+									</p>
+									<div className="flex items-center gap-1 text-[11px] text-muted-foreground">
+										<StarIcon className="size-3 fill-amber-400 text-amber-400" />
+										<StarIcon className="size-3 fill-amber-400 text-amber-400" />
+										<StarIcon className="size-3 fill-amber-400 text-amber-400" />
+										<StarIcon className="size-3 fill-amber-400 text-amber-400" />
+										<StarIcon className="size-3 fill-amber-200 text-amber-300" />
+										<span className="ml-1 font-medium text-foreground text-xs">
+											{selectedFactory.rating.toFixed(1)}
+										</span>
+										<StarIcon className="ml-1 size-3 text-amber-500" />
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div className="min-w-[210px]">
-							<p className="text-[11px] text-muted-foreground uppercase">
-								FOB Total
-							</p>
-							<p className="font-semibold text-foreground text-xl">
-								{moneyFormatter.format(selectedFactory.fobTotal)}
-							</p>
-							<p className="text-[11px] text-muted-foreground">
-								Avg. {moneyFormatter.format(selectedFactory.avgPerUnit)}/unit •{" "}
-								42.5% margin
-							</p>
-						</div>
+							<div className="min-w-[210px]">
+								<p className="text-[11px] text-muted-foreground uppercase">
+									FOB Total
+								</p>
+								<p className="font-semibold text-foreground text-xl">
+									{moneyFormatter.format(selectedFactory.fobTotal)}
+								</p>
+								<p className="text-[11px] text-muted-foreground">
+									Avg. {moneyFormatter.format(selectedFactory.avgPerUnit)}/unit
+									• 42.5% margin
+								</p>
+							</div>
 
-						<div className="ml-auto flex items-center gap-2">
-							<button
-								aria-label="Open message panel"
-								className="relative inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-muted-foreground hover:text-foreground"
-								type="button"
-							>
-								<MessageSquareIcon className="size-4" />
-								<span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-blue-500" />
-							</button>
-							<Button size="sm" variant="outline">
-								<Undo2Icon data-icon="inline-start" />
-								Negotiate
-							</Button>
-							<Button
-								className="bg-zinc-950 text-white hover:bg-zinc-800"
-								size="sm"
-							>
-								<CheckIcon data-icon="inline-start" />
-								Create Draft Order
-							</Button>
-							<button
-								aria-label="Close supplier selection banner"
-								className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground hover:text-foreground"
-								onClick={() => setSelectedFactoryId(null)}
-								type="button"
-							>
-								<XIcon className="size-4" />
-							</button>
+							<div className="ml-auto flex items-center gap-2">
+								<button
+									aria-label="Open message panel"
+									className="relative inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+									type="button"
+								>
+									<MessageSquareIcon className="size-4" />
+									<span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-blue-500" />
+								</button>
+								<Button size="sm" variant="outline">
+									<Undo2Icon data-icon="inline-start" />
+									Negotiate
+								</Button>
+								<Button
+									className="bg-zinc-950 text-white hover:bg-zinc-800"
+									size="sm"
+								>
+									<CheckIcon data-icon="inline-start" />
+									Create Draft Order
+								</Button>
+								<button
+									aria-label="Close supplier selection banner"
+									className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground hover:text-foreground"
+									onClick={() => setSelectedFactoryId(null)}
+									type="button"
+								>
+									<XIcon className="size-4" />
+								</button>
+							</div>
 						</div>
-					</div>
-				</div>
-			) : null}
+					</motion.div>
+				) : null}
+			</AnimatePresence>
 		</div>
 	);
 }
