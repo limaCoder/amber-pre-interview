@@ -4,6 +4,8 @@ import { Checkbox } from "@amber-pre-interview/ui/components/checkbox";
 import { TableCell, TableRow } from "@amber-pre-interview/ui/components/table";
 import { cn } from "@amber-pre-interview/ui/lib/utils";
 import { ChevronDownIcon, ChevronRightIcon, EllipsisIcon } from "lucide-react";
+import type { Route } from "next";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { STATUS_COLORS } from "./constants";
 import { SuppliersCell } from "./suppliers-cell";
@@ -49,7 +51,14 @@ function OrdersDataRow({
 							·
 						</span>
 					)}
-					<span className="font-medium text-blue-600">{item.row.rfqCode}</span>
+					<Link
+						className="font-medium text-blue-600 underline-offset-4 hover:underline"
+						href={
+							`/dashboard/orders/${encodeURIComponent(item.row.rfqCode)}` as Route
+						}
+					>
+						{item.row.rfqCode}
+					</Link>
 				</div>
 			</TableCell>
 		);

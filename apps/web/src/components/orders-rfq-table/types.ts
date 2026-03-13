@@ -1,31 +1,12 @@
-export type OrderStatus =
-	| "Draft"
-	| "Requested"
-	| "In Progress"
-	| "Completed"
-	| "Your Turn"
-	| "Awaiting Supplier"
-	| "Awarded"
-	| "Ordered"
-	| "Cancelled"
-	| "Paused";
+import type {
+	OrderRow as DomainOrderRow,
+	OrderStatus as DomainOrderStatus,
+	Supplier as DomainSupplier,
+} from "@/data/orders-domain";
 
-export interface Supplier {
-	flag: string;
-	id: string;
-	name: string;
-}
-
-export interface OrderRow {
-	children?: OrderRow[];
-	dueDate: string;
-	id: string;
-	rfqCode: string;
-	startDate: string;
-	status: OrderStatus;
-	suppliers: Supplier[];
-	totalCost: number | null;
-}
+export type OrderRow = DomainOrderRow;
+export type OrderStatus = DomainOrderStatus;
+export type Supplier = DomainSupplier;
 
 export type ColumnKey =
 	| "rfqCode"

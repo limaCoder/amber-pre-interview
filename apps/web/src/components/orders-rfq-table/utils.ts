@@ -1,4 +1,4 @@
-import { STATUS_OPTIONS } from "./constants";
+import { STATUS_OPTIONS } from "@/data/orders-domain";
 import type {
 	ColumnKey,
 	GroupField,

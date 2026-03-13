@@ -11,7 +11,7 @@ import {
 	DropdownMenuTrigger,
 } from "@amber-pre-interview/ui/components/dropdown-menu";
 import { FilterIcon } from "lucide-react";
-import { STATUS_OPTIONS } from "./constants";
+import { STATUS_OPTIONS } from "@/data/orders-domain";
 import type { OrderStatus } from "./types";
 
 interface OrdersRfqTableFilterDropdownProps {

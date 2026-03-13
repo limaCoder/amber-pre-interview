@@ -6,7 +6,7 @@ import {
 	TableHeader,
 } from "@amber-pre-interview/ui/components/table";
 import { Fragment, useMemo, useState } from "react";
-import { ORDER_ROWS, STATUS_OPTIONS } from "./constants";
+import { ORDER_ROWS, STATUS_OPTIONS } from "@/data/orders-domain";
 import { OrdersDataRow } from "./orders-data-row";
 import { OrdersRfqTableFiltersBar } from "./orders-rfq-table-filters-bar";
 import { OrdersRfqTableGroupHeader } from "./orders-rfq-table-group-header";

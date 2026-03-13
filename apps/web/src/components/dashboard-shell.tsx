@@ -4,6 +4,7 @@ import {
 	SidebarInset,
 	SidebarProvider,
 } from "@amber-pre-interview/ui/components/sidebar";
+import { cn } from "@amber-pre-interview/ui/lib/utils";
 import { usePathname } from "next/navigation";
 
 import AppSidebar from "@/components/app-sidebar";
@@ -24,6 +25,14 @@ const PAGE_TITLES_BY_PATH: Record<string, string> = {
 	"/dashboard/workflows": "Workflows",
 };
 
+const getPageTitle = (pathname: string): string => {
+	if (pathname.startsWith("/dashboard/orders/")) {
+		return "Orders";
+	}
+
+	return PAGE_TITLES_BY_PATH[pathname] ?? "Dashboard";
+};
+
 export default function DashboardShell({
 	children,
 	userEmail,
@@ -34,7 +43,8 @@ export default function DashboardShell({
 	userName: string;
 }) {
 	const pathname = usePathname();
-	const title = PAGE_TITLES_BY_PATH[pathname] ?? "Dashboard";
+	const title = getPageTitle(pathname);
+	const isOrdersDetailRoute = pathname.startsWith("/dashboard/orders/");
 
 	return (
 		<div className="min-h-svh bg-muted/25 py-2 pr-2 pl-0 md:py-3 md:pr-3 md:pl-0">
@@ -44,7 +54,14 @@ export default function DashboardShell({
 					<header className="flex h-14 items-center border-b bg-background px-4">
 						<h1 className="font-medium text-sm">{title}</h1>
 					</header>
-					<section className="flex flex-1 items-center justify-center p-6">
+					<section
+						className={cn(
+							"flex min-h-0 flex-1",
+							isOrdersDetailRoute
+								? "h-full w-full overflow-hidden p-0"
+								: "items-center justify-center p-6"
+						)}
+					>
 						{children}
 					</section>
 				</SidebarInset>
