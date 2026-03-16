@@ -47,17 +47,19 @@ export function OrdersRfqTableFiltersBar({
 	sortedByCount,
 }: OrdersRfqTableFiltersBarProps) {
 	return (
-		<div className="flex flex-wrap items-center justify-between gap-2 border-b px-3 py-2">
-			<div className="flex flex-wrap items-center gap-2">
-				<span className="inline-flex h-6 items-center rounded-md border border-violet-200 bg-violet-100 px-2 text-violet-700 text-xs">
+		<div className="flex flex-wrap items-center justify-between gap-2 border-b bg-background px-3 py-1.5">
+			<div className="flex flex-wrap items-center gap-1.5">
+				<span className="inline-flex h-6 items-center gap-1.5 rounded-md border border-violet-200 bg-violet-100/70 px-2 text-violet-700 text-xs">
+					<span className="size-1.5 rounded-full bg-violet-500" />
 					Grouped by {groupedByCount} fields
 				</span>
-				<span className="inline-flex h-6 items-center rounded-md border border-sky-200 bg-sky-100 px-2 text-sky-700 text-xs">
+				<span className="inline-flex h-6 items-center gap-1.5 rounded-md border border-sky-200 bg-sky-100/70 px-2 text-sky-700 text-xs">
+					<span className="size-1.5 rounded-full bg-sky-500" />
 					Sorted by {sortedByCount} fields
 				</span>
 			</div>
 
-			<div className="flex flex-wrap items-center gap-1.5">
+			<div className="flex flex-wrap items-center gap-0.5">
 				<OrdersRfqTableSortDropdown
 					onSetSortField={onSetSortField}
 					onToggleDirection={onToggleDirection}

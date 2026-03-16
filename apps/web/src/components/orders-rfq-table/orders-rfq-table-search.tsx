@@ -17,11 +17,11 @@ export function OrdersRfqTableSearch({
 	value,
 }: OrdersRfqTableSearchProps) {
 	return (
-		<div className="relative flex w-52 min-w-36 items-center">
+		<div className="relative flex w-64 min-w-48 items-center">
 			<SearchIcon className="pointer-events-none absolute top-1/2 left-2 size-3.5 -translate-y-1/2 text-muted-foreground" />
 			<Input
 				aria-label={ariaLabel}
-				className="h-7 pl-7"
+				className="h-8 rounded-md border-border/80 pl-7 text-sm"
 				onChange={(event) => onChange(event.target.value)}
 				placeholder={placeholder}
 				value={value}

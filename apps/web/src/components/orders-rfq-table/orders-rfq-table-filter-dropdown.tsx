@@ -10,7 +10,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@amber-pre-interview/ui/components/dropdown-menu";
-import { FilterIcon } from "lucide-react";
+import { ListFilterIcon } from "lucide-react";
 import { STATUS_OPTIONS } from "@/data/orders-domain";
 import type { OrderStatus } from "./types";
 
@@ -27,8 +27,8 @@ export function OrdersRfqTableFilterDropdown({
 }: OrdersRfqTableFilterDropdownProps) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="inline-flex h-7 items-center gap-1 rounded-md px-2 text-muted-foreground text-xs outline-hidden ring-ring/50 hover:bg-muted hover:text-foreground focus-visible:ring-1">
-				<FilterIcon />
+			<DropdownMenuTrigger className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-muted-foreground text-xs outline-hidden ring-ring/50 hover:bg-muted hover:text-foreground focus-visible:ring-1">
+				<ListFilterIcon className="size-3.5" />
 				Filter by
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">

@@ -8,7 +8,7 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from "@amber-pre-interview/ui/components/dropdown-menu";
-import { SlidersHorizontalIcon } from "lucide-react";
+import { EyeOffIcon } from "lucide-react";
 import { COLUMN_OPTIONS } from "./constants";
 import type { ColumnKey } from "./types";
 
@@ -23,8 +23,8 @@ export function OrdersRfqTableColumnsDropdown({
 }: OrdersRfqTableColumnsDropdownProps) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="inline-flex h-7 items-center gap-1 rounded-md px-2 text-muted-foreground text-xs outline-hidden ring-ring/50 hover:bg-muted hover:text-foreground focus-visible:ring-1">
-				<SlidersHorizontalIcon />
+			<DropdownMenuTrigger className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-muted-foreground text-xs outline-hidden ring-ring/50 hover:bg-muted hover:text-foreground focus-visible:ring-1">
+				<EyeOffIcon className="size-3.5" />
 				Hide fields
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">

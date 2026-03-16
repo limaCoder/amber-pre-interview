@@ -8,7 +8,7 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from "@amber-pre-interview/ui/components/dropdown-menu";
-import { FolderTreeIcon } from "lucide-react";
+import { GroupIcon } from "lucide-react";
 import type { GroupField } from "./types";
 
 interface OrdersRfqTableGroupDropdownProps {
@@ -22,8 +22,8 @@ export function OrdersRfqTableGroupDropdown({
 }: OrdersRfqTableGroupDropdownProps) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="inline-flex h-7 items-center gap-1 rounded-md px-2 text-muted-foreground text-xs outline-hidden ring-ring/50 hover:bg-muted hover:text-foreground focus-visible:ring-1">
-				<FolderTreeIcon />
+			<DropdownMenuTrigger className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-muted-foreground text-xs outline-hidden ring-ring/50 hover:bg-muted hover:text-foreground focus-visible:ring-1">
+				<GroupIcon className="size-3.5" />
 				Group
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">

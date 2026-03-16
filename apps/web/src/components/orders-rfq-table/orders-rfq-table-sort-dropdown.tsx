@@ -10,7 +10,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@amber-pre-interview/ui/components/dropdown-menu";
-import { ArrowDownUpIcon } from "lucide-react";
+import { ArrowUpNarrowWideIcon } from "lucide-react";
 import { SORT_OPTIONS } from "./constants";
 import type { SortField, SortRule } from "./types";
 
@@ -27,8 +27,8 @@ export function OrdersRfqTableSortDropdown({
 }: OrdersRfqTableSortDropdownProps) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="inline-flex h-7 items-center gap-1 rounded-md px-2 text-muted-foreground text-xs outline-hidden ring-ring/50 hover:bg-muted hover:text-foreground focus-visible:ring-1">
-				<ArrowDownUpIcon />
+			<DropdownMenuTrigger className="inline-flex h-8 items-center gap-1 rounded-md px-2 text-muted-foreground text-xs outline-hidden ring-ring/50 hover:bg-muted hover:text-foreground focus-visible:ring-1">
+				<ArrowUpNarrowWideIcon className="size-3.5" />
 				Sorted by
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="min-w-64">
