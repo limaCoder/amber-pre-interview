@@ -2,13 +2,7 @@
 
 import { Input } from "@amber-pre-interview/ui/components/input";
 import { SearchIcon } from "lucide-react";
-
-interface OrdersRfqTableSearchProps {
-	"aria-label": string;
-	onChange: (value: string) => void;
-	placeholder?: string;
-	value: string;
-}
+import type { OrdersRfqTableSearchProps } from "./types";
 
 export function OrdersRfqTableSearch({
 	"aria-label": ariaLabel,

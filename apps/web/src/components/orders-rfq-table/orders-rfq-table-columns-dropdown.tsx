@@ -10,12 +10,7 @@ import {
 } from "@amber-pre-interview/ui/components/dropdown-menu";
 import { EyeOffIcon } from "lucide-react";
 import { COLUMN_OPTIONS } from "./constants";
-import type { ColumnKey } from "./types";
-
-interface OrdersRfqTableColumnsDropdownProps {
-	isColumnVisible: (column: ColumnKey) => boolean;
-	onToggleColumn: (column: ColumnKey) => void;
-}
+import type { OrdersRfqTableColumnsDropdownProps } from "./types";
 
 export function OrdersRfqTableColumnsDropdown({
 	isColumnVisible,

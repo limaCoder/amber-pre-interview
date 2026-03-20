@@ -1,13 +1,9 @@
+"use client";
+
 import { Checkbox } from "@amber-pre-interview/ui/components/checkbox";
 import { TableHead, TableRow } from "@amber-pre-interview/ui/components/table";
 import { COLUMN_OPTIONS } from "./constants";
-import type { ColumnKey } from "./types";
-
-interface OrdersRfqTableHeaderProps {
-	headerSelectionState: "checked" | "indeterminate" | "unchecked";
-	isColumnVisible: (column: ColumnKey) => boolean;
-	onToggleSelectAll: (shouldSelect: boolean) => void;
-}
+import type { OrdersRfqTableHeaderProps } from "./types";
 
 export function OrdersRfqTableHeader({
 	headerSelectionState,

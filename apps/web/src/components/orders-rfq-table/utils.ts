@@ -1,4 +1,7 @@
 import { STATUS_OPTIONS } from "@/data/orders-domain";
+import { moneyFormatter } from "@/utils/currency";
+import { parseDate, toMonthLabel } from "@/utils/date";
+import { normalize } from "@/utils/normalize";
 import type {
 	ColumnKey,
 	GroupField,
@@ -9,28 +12,6 @@ import type {
 	SortField,
 	SortRule,
 } from "./types";
-
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-	day: "numeric",
-	month: "short",
-	year: "numeric",
-});
-
-const currencyFormatter = new Intl.NumberFormat("en-US", {
-	currency: "USD",
-	style: "currency",
-});
-
-export const parseDate = (value: string): number => {
-	return new Date(`${value}T00:00:00.000Z`).getTime();
-};
-
-export const toMonthLabel = (dateIso: string): string => {
-	return new Intl.DateTimeFormat("en-US", {
-		month: "long",
-		year: "numeric",
-	}).format(new Date(`${dateIso}T00:00:00.000Z`));
-};
 
 const statusSortRank = (status: OrderStatus): number => {
 	return STATUS_OPTIONS.indexOf(status);
@@ -78,8 +59,6 @@ const compareRowsByRules = (
 
 	return left.rfqCode.localeCompare(right.rfqCode);
 };
-
-const normalize = (value: string): string => value.trim().toLowerCase();
 
 const matchesSearch = (row: OrderRow, searchQuery: string): boolean => {
 	if (searchQuery.length === 0) {
@@ -194,16 +173,12 @@ export const buildGroups = (
 		}));
 };
 
-export const formatDate = (value: string): string => {
-	return dateFormatter.format(new Date(`${value}T00:00:00.000Z`));
-};
-
 export const formatCurrency = (value: number | null): string => {
 	if (value === null) {
 		return "—";
 	}
 
-	return currencyFormatter.format(value);
+	return moneyFormatter.format(value);
 };
 
 export const getChildrenIds = (row: OrderRow): string[] => {

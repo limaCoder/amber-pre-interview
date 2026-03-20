@@ -7,10 +7,11 @@ import { ChevronDownIcon, ChevronRightIcon, EllipsisIcon } from "lucide-react";
 import type { Route } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { formatDate } from "@/utils/date";
 import { STATUS_COLORS } from "./constants";
 import { SuppliersCell } from "./suppliers-cell";
 import type { OrdersDataRowProps } from "./types";
-import { formatCurrency, formatDate } from "./utils";
+import { formatCurrency } from "./utils";
 
 function OrdersDataRow({
 	isColumnVisible,

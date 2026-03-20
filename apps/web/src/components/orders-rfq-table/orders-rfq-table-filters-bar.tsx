@@ -5,30 +5,7 @@ import { OrdersRfqTableFilterDropdown } from "./orders-rfq-table-filter-dropdown
 import { OrdersRfqTableGroupDropdown } from "./orders-rfq-table-group-dropdown";
 import { OrdersRfqTableSearch } from "./orders-rfq-table-search";
 import { OrdersRfqTableSortDropdown } from "./orders-rfq-table-sort-dropdown";
-import type {
-	ColumnKey,
-	GroupField,
-	OrderStatus,
-	SortField,
-	SortRule,
-} from "./types";
-
-interface OrdersRfqTableFiltersBarProps {
-	groupBy: GroupField;
-	groupedByCount: number;
-	isColumnVisible: (column: ColumnKey) => boolean;
-	onClearFilters: () => void;
-	onGroupByChange: (groupBy: GroupField) => void;
-	onSearchChange: (value: string) => void;
-	onSetSortField: (id: string, field: SortField) => void;
-	onToggleColumn: (column: ColumnKey) => void;
-	onToggleDirection: (id: string) => void;
-	onToggleStatus: (status: OrderStatus) => void;
-	searchQuery: string;
-	selectedStatuses: Set<OrderStatus>;
-	sortedByCount: number;
-	sortRules: SortRule[];
-}
+import type { OrdersRfqTableFiltersBarProps } from "./types";
 
 export function OrdersRfqTableFiltersBar({
 	groupBy,

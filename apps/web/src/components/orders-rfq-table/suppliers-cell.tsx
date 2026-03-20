@@ -1,8 +1,4 @@
-import type { Supplier } from "./types";
-
-interface SuppliersCellProps {
-	suppliers: Supplier[];
-}
+import type { SuppliersCellProps } from "./types";
 
 export function SuppliersCell({ suppliers }: SuppliersCellProps) {
 	if (suppliers.length === 0) {

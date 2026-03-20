@@ -9,12 +9,7 @@ import {
 	DropdownMenuTrigger,
 } from "@amber-pre-interview/ui/components/dropdown-menu";
 import { GroupIcon } from "lucide-react";
-import type { GroupField } from "./types";
-
-interface OrdersRfqTableGroupDropdownProps {
-	groupBy: GroupField;
-	onGroupByChange: (groupBy: GroupField) => void;
-}
+import type { OrdersRfqTableGroupDropdownProps } from "./types";
 
 export function OrdersRfqTableGroupDropdown({
 	groupBy,

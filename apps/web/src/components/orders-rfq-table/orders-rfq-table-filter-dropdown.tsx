@@ -12,13 +12,7 @@ import {
 } from "@amber-pre-interview/ui/components/dropdown-menu";
 import { ListFilterIcon } from "lucide-react";
 import { STATUS_OPTIONS } from "@/data/orders-domain";
-import type { OrderStatus } from "./types";
-
-interface OrdersRfqTableFilterDropdownProps {
-	onClearFilters: () => void;
-	onToggleStatus: (status: OrderStatus) => void;
-	selectedStatuses: Set<OrderStatus>;
-}
+import type { OrdersRfqTableFilterDropdownProps } from "./types";
 
 export function OrdersRfqTableFilterDropdown({
 	onClearFilters,

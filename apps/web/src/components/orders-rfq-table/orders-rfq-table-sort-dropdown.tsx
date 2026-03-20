@@ -12,13 +12,7 @@ import {
 } from "@amber-pre-interview/ui/components/dropdown-menu";
 import { ArrowUpNarrowWideIcon } from "lucide-react";
 import { SORT_OPTIONS } from "./constants";
-import type { SortField, SortRule } from "./types";
-
-interface OrdersRfqTableSortDropdownProps {
-	onSetSortField: (id: string, field: SortField) => void;
-	onToggleDirection: (id: string) => void;
-	sortRules: SortRule[];
-}
+import type { OrdersRfqTableSortDropdownProps } from "./types";
 
 export function OrdersRfqTableSortDropdown({
 	onSetSortField,

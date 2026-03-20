@@ -1,11 +1,6 @@
 import { TableCell, TableRow } from "@amber-pre-interview/ui/components/table";
 import { ListFilterIcon } from "lucide-react";
-
-interface OrdersRfqTableGroupHeaderProps {
-	colSpan: number;
-	label: string;
-	rootItemCount: number;
-}
+import type { OrdersRfqTableGroupHeaderProps } from "./types";
 
 export function OrdersRfqTableGroupHeader({
 	colSpan,
