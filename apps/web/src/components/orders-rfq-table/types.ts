@@ -146,3 +146,11 @@ export interface UseOrdersRfqTableReturn {
 	toggleStatusFilter: (status: OrderStatus) => void;
 	viewState: OrdersViewState;
 }
+
+export interface RowCellContentProps {
+	columnKey: string;
+	isExpanded: boolean;
+	item: RowView;
+	leftPadding: string;
+	onToggleExpand: (id: string) => void;
+}

@@ -5,7 +5,8 @@ import {
 	TableBody,
 	TableHeader,
 } from "@amber-pre-interview/ui/components/table";
-import { Fragment } from "react";
+import { AnimatePresence } from "motion/react";
+import type { ReactNode } from "react";
 import { OrdersDataRow } from "./orders-data-row";
 import { OrdersRfqTableFiltersBar } from "./orders-rfq-table-filters-bar";
 import { OrdersRfqTableGroupHeader } from "./orders-rfq-table-group-header";
@@ -69,26 +70,32 @@ export default function OrdersRfqTable() {
 						/>
 					</TableHeader>
 					<TableBody>
-						{groupedRows.map((group) => {
-							const groupVisibleItems = getGroupVisibleItems(
-								group,
-								parentByChildId,
-								expandedRowIds
-							);
-							const rootItemCount = groupVisibleItems.filter(
-								(item) => item.depth === 0
-							).length;
+						<AnimatePresence initial={false}>
+							{groupedRows.flatMap((group) => {
+								const groupVisibleItems = getGroupVisibleItems(
+									group,
+									parentByChildId,
+									expandedRowIds
+								);
+								const rootItemCount = groupVisibleItems.filter(
+									(item) => item.depth === 0
+								).length;
 
-							return (
-								<Fragment key={group.key}>
-									{viewState.groupBy !== "none" ? (
+								const items: ReactNode[] = [];
+
+								if (viewState.groupBy !== "none") {
+									items.push(
 										<OrdersRfqTableGroupHeader
 											colSpan={getGroupHeaderColSpan(isColumnVisible)}
+											key={`header-${group.key}`}
 											label={group.label}
 											rootItemCount={rootItemCount}
 										/>
-									) : null}
-									{groupVisibleItems.map((item) => (
+									);
+								}
+
+								items.push(
+									...groupVisibleItems.map((item) => (
 										<OrdersDataRow
 											isColumnVisible={isColumnVisible}
 											isExpanded={expandedRowIds.has(item.id)}
@@ -101,10 +108,12 @@ export default function OrdersRfqTable() {
 												viewState.selectedVisibleRowIds
 											)}
 										/>
-									))}
-								</Fragment>
-							);
-						})}
+									))
+								);
+
+								return items;
+							})}
+						</AnimatePresence>
 					</TableBody>
 				</Table>
 			</div>
