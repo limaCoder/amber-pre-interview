@@ -3,6 +3,7 @@ import type { Route } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import AuthLayout from "@/components/auth-layout";
 import SignUpForm from "@/components/sign-up-form";
 
 export default async function SignUpPage() {
@@ -15,8 +16,11 @@ export default async function SignUpPage() {
 	}
 
 	return (
-		<main className="flex min-h-svh items-center justify-center p-6">
+		<AuthLayout
+			description="Create your account to get started with our platform"
+			title="Join us today"
+		>
 			<SignUpForm />
-		</main>
+		</AuthLayout>
 	);
 }
