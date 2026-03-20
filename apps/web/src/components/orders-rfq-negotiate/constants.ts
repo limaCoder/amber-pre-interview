@@ -3,11 +3,6 @@ import type { NegotiationQuoteStatus } from "@/models/rfq-negotiate";
 
 export const negotiateTemplate = RFQ_NEGOTIATE_TEMPLATE;
 
-export const moneyFormatter = new Intl.NumberFormat("en-US", {
-	currency: "USD",
-	style: "currency",
-});
-
 export const quoteStatusColorMap: Record<NegotiationQuoteStatus, string> = {
 	"Awaiting Supplier": "border-orange-200 bg-orange-100 text-orange-700",
 	Completed: "border-emerald-200 bg-emerald-100 text-emerald-700",

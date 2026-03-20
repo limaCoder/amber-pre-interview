@@ -1,5 +1,4 @@
 import { STATUS_OPTIONS } from "@/data/orders-domain";
-import { moneyFormatter } from "@/utils/currency";
 import { parseDate, toMonthLabel } from "@/utils/date";
 import { normalize } from "@/utils/normalize";
 import type {
@@ -171,14 +170,6 @@ export const buildGroups = (
 			key,
 			label: key,
 		}));
-};
-
-export const formatCurrency = (value: number | null): string => {
-	if (value === null) {
-		return "—";
-	}
-
-	return moneyFormatter.format(value);
 };
 
 export const getChildrenIds = (row: OrderRow): string[] => {
