@@ -20,17 +20,13 @@ import { AnimatePresence, motion } from "motion/react";
 import type { Route } from "next";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import type { NegotiationProduct } from "@/models/rfq-negotiate";
 import {
 	moneyFormatter,
 	negotiateTemplate,
 	quoteStatusColorMap,
 } from "./constants";
-import type {
-	CostView,
-	MarginView,
-	NegotiationProduct,
-	OrdersRfqNegotiateProps,
-} from "./types";
+import type { CostView, MarginView, OrdersRfqNegotiateProps } from "./types";
 
 const iconButtonClassName =
 	"inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:bg-muted hover:text-foreground";
@@ -61,7 +57,7 @@ const formatMultiplier = (index: number): string => {
 
 const ProductThumb = () => {
 	return (
-		<div className="h-12 w-10 overflow-hidden rounded-md border bg-gradient-to-b from-sky-100 via-zinc-50 to-slate-100">
+		<div className="h-12 w-10 overflow-hidden rounded-md border bg-linear-to-b from-sky-100 via-zinc-50 to-slate-100">
 			<div className="h-full w-full bg-[linear-gradient(120deg,#dbeafe_0%,#e2e8f0_45%,#bfdbfe_100%)]" />
 		</div>
 	);

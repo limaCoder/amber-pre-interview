@@ -1,5 +1,5 @@
-import type { OrderStatus } from "@/data/orders-domain";
 import { rfqDetailTemplate } from "@/data/rfq-detail-template";
+import type { OrderStatus } from "@/models/orders-domain";
 import type { QuoteStatus } from "./types";
 
 export const orderStatusColors: Record<OrderStatus, string> = {

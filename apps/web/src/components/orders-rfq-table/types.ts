@@ -2,7 +2,7 @@ import type {
 	OrderRow as DomainOrderRow,
 	OrderStatus as DomainOrderStatus,
 	Supplier as DomainSupplier,
-} from "@/data/orders-domain";
+} from "@/models/orders-domain";
 
 export type OrderRow = DomainOrderRow;
 export type OrderStatus = DomainOrderStatus;

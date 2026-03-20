@@ -1,5 +1,5 @@
 import { RFQ_NEGOTIATE_TEMPLATE } from "@/data/rfq-negotiate-template";
-import type { NegotiationQuoteStatus } from "./types";
+import type { NegotiationQuoteStatus } from "@/models/rfq-negotiate";
 
 export const negotiateTemplate = RFQ_NEGOTIATE_TEMPLATE;
 

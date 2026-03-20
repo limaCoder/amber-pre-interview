@@ -1,10 +1,4 @@
-import type { RfqNegotiateFactory } from "@/data/rfq-negotiate-template";
-
-export type {
-	NegotiationProduct,
-	NegotiationQuoteStatus,
-	RfqNegotiateFactory,
-} from "@/data/rfq-negotiate-template";
+import type { RfqNegotiateFactory } from "@/models/rfq-negotiate";
 
 export type CostView = "FOB" | "Landed";
 export type MarginView = "Markup" | "Margin";

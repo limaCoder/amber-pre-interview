@@ -1,4 +1,4 @@
-import type { OrderStatus } from "@/data/orders-domain";
+import type { OrderStatus } from "@/models/orders-domain";
 
 export const STATUS_COLORS: Record<OrderStatus, string> = {
 	Draft: "border-border bg-muted text-muted-foreground",

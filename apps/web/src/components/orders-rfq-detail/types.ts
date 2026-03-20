@@ -1,9 +1,9 @@
-import type { OrderStatus } from "@/data/orders-domain";
+import type { OrderStatus } from "@/models/orders-domain";
 import type {
 	FactoryQuoteColumn,
 	ProductGroup,
 	ProductLine,
-} from "@/data/rfq-detail-template";
+} from "@/models/rfq-detail";
 
 export type {
 	FactoryQuoteColumn,
@@ -11,7 +11,7 @@ export type {
 	ProductLine,
 	QuoteStatus,
 	RfqDetailHeader,
-} from "@/data/rfq-detail-template";
+} from "@/models/rfq-detail";
 
 export interface OrdersRfqDetailProps {
 	orderStatus: OrderStatus;

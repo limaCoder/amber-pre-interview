@@ -1,0 +1,15 @@
+export const PAGE_TITLES_BY_PATH: Record<string, string> = {
+	"/dashboard": "Products",
+	"/dashboard/assistant": "Assistant",
+	"/dashboard/forecast": "Forecast",
+	"/dashboard/inbox": "Inbox",
+	"/dashboard/orders": "Orders",
+	"/dashboard/payments": "Payments",
+	"/dashboard/products": "Products",
+	"/dashboard/quotes": "Quotes",
+	"/dashboard/settings": "Settings",
+	"/dashboard/shipments": "Shipments",
+	"/dashboard/suppliers": "Suppliers",
+	"/dashboard/support": "Support",
+	"/dashboard/workflows": "Workflows",
+};

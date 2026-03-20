@@ -8,28 +8,9 @@ import { cn } from "@amber-pre-interview/ui/lib/utils";
 import { usePathname } from "next/navigation";
 
 import AppSidebar from "@/components/app-sidebar";
-
-const PAGE_TITLES_BY_PATH: Record<string, string> = {
-	"/dashboard": "Products",
-	"/dashboard/assistant": "Assistant",
-	"/dashboard/forecast": "Forecast",
-	"/dashboard/inbox": "Inbox",
-	"/dashboard/orders": "Orders",
-	"/dashboard/payments": "Payments",
-	"/dashboard/products": "Products",
-	"/dashboard/quotes": "Quotes",
-	"/dashboard/settings": "Settings",
-	"/dashboard/shipments": "Shipments",
-	"/dashboard/suppliers": "Suppliers",
-	"/dashboard/support": "Support",
-	"/dashboard/workflows": "Workflows",
-};
+import { PAGE_TITLES_BY_PATH } from "@/routes";
 
 const getPageTitle = (pathname: string): string => {
-	if (pathname.startsWith("/dashboard/orders/")) {
-		return "Orders";
-	}
-
 	return PAGE_TITLES_BY_PATH[pathname] ?? "Dashboard";
 };
 
