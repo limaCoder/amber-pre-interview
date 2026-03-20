@@ -2,11 +2,6 @@ import type { OrderStatus } from "@/data/orders-domain";
 import { rfqDetailTemplate } from "@/data/rfq-detail-template";
 import type { QuoteStatus } from "./types";
 
-export const moneyFormatter = new Intl.NumberFormat("en-US", {
-	currency: "USD",
-	style: "currency",
-});
-
 export const orderStatusColors: Record<OrderStatus, string> = {
 	Draft: "border-zinc-200 bg-zinc-100 text-zinc-700",
 	Requested: "border-sky-200 bg-sky-100 text-sky-700",
